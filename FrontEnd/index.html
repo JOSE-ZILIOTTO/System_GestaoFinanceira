@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sistema Financeiro Pessoal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+   
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+   
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Finanças Pessoais</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Alternar navegação"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a
+                class="nav-link active nav-link-section"
+                data-target="sec-dashboard"
+                href="#"
+                >Dashboard</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link nav-link-section"
+                data-target="sec-contas"
+                href="#"
+                >Contas</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link nav-link-section"
+                data-target="sec-categorias"
+                href="#"
+                >Categorias</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link nav-link-section"
+                data-target="sec-lancamentos"
+                href="#"
+                >Lançamentos</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mb-5">
+  
+      <section id="sec-dashboard" class="section-visible">
+        <h2 class="mb-3">Dashboard</h2>
+
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label for="dashConta" class="form-label">Conta</label>
+            <select id="dashConta" class="form-select"></select>
+          </div>
+          <div class="col-md-3">
+            <label for="dashDataInicio" class="form-label">Data Início</label>
+            <input type="date" id="dashDataInicio" class="form-control" />
+          </div>
+          <div class="col-md-3">
+            <label for="dashDataFim" class="form-label">Data Fim</label>
+            <input type="date" id="dashDataFim" class="form-control" />
+          </div>
+          <div class="col-md-2 d-flex align-items-end">
+            <button id="btnFiltrarDashboard" class="btn btn-primary w-100">
+              Filtrar
+            </button>
+          </div>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="card text-bg-success">
+              <div class="card-body">
+                <h5 class="card-title">Total Receitas</h5>
+                <p class="card-text fs-4" id="dashTotalReceitas">R$ 0,00</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card text-bg-danger">
+              <div class="card-body">
+                <h5 class="card-title">Total Despesas</h5>
+                <p class="card-text fs-4" id="dashTotalDespesas">R$ 0,00</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card text-bg-secondary">
+              <div class="card-body">
+                <h5 class="card-title">Saldo no Período</h5>
+                <p class="card-text fs-4" id="dashSaldoPeriodo">R$ 0,00</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="sec-contas" class="section-hidden">
+        <h2 class="mb-3">Contas Financeiras</h2>
+
+        <div class="card mb-3">
+          <div class="card-header">Nova Conta</div>
+          <div class="card-body">
+            <form id="formConta" class="row g-3">
+              <div class="col-md-6">
+                <label for="contaNome" class="form-label">Nome da Conta</label>
+                <input
+                  type="text"
+                  id="contaNome"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="col-md-4">
+                <label for="contaSaldoInicial" class="form-label"
+                  >Saldo Inicial</label
+                >
+                <input
+                  type="number"
+                  step="0.01"
+                  id="contaSaldoInicial"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="col-md-2 d-flex align-items-end">
+                <button type="submit" class="btn btn-success w-100">
+                  Salvar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <h5>Contas cadastradas</h5>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nome</th>
+              <th>Saldo Inicial</th>
+            </tr>
+          </thead>
+          <tbody id="tblContasBody">
+          
+          </tbody>
+        </table>
+      </section>
+
+      
+      <section id="sec-categorias" class="section-hidden">
+        <h2 class="mb-3">Categorias</h2>
+
+        <div class="card mb-3">
+          <div class="card-header">Nova Categoria</div>
+          <div class="card-body">
+            <form id="formCategoria" class="row g-3">
+              <div class="col-md-6">
+                <label for="catDescricao" class="form-label">Descrição</label>
+                <input
+                  type="text"
+                  id="catDescricao"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="col-md-4">
+                <label for="catTipo" class="form-label">Tipo</label>
+                <select id="catTipo" class="form-select" required>
+                  <option value="">Selecione...</option>
+                  <option value="R">Receita</option>
+                  <option value="D">Despesa</option>
+                </select>
+              </div>
+              <div class="col-md-2 d-flex align-items-end">
+                <button type="submit" class="btn btn-success w-100">
+                  Salvar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <h5>Categorias cadastradas</h5>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Descrição</th>
+              <th>Tipo</th>
+            </tr>
+          </thead>
+          <tbody id="tblCategoriasBody">
+           
+          </tbody>
+        </table>
+      </section>
+
+    
+      <section id="sec-lancamentos" class="section-hidden">
+        <h2 class="mb-3">Lançamentos</h2>
+
+        <div class="card mb-3">
+          <div class="card-header">Novo Lançamento</div>
+          <div class="card-body">
+            <form id="formLancamento" class="row g-3">
+              <div class="col-md-3">
+                <label for="lanConta" class="form-label">Conta</label>
+                <select id="lanConta" class="form-select" required></select>
+              </div>
+              <div class="col-md-3">
+                <label for="lanCategoria" class="form-label">Categoria</label>
+                <select id="lanCategoria" class="form-select" required></select>
+              </div>
+              <div class="col-md-2">
+                <label for="lanTipo" class="form-label">Tipo</label>
+                <select id="lanTipo" class="form-select" required>
+                  <option value="">Selecione...</option>
+                  <option value="R">Receita</option>
+                  <option value="D">Despesa</option>
+                </select>
+              </div>
+              <div class="col-md-2">
+                <label for="lanValor" class="form-label">Valor</label>
+                <input
+                  type="number"
+                  step="0.01"
+                  id="lanValor"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="col-md-2">
+                <label for="lanData" class="form-label">Data</label>
+                <input type="date" id="lanData" class="form-control" required />
+              </div>
+              <div class="col-md-12">
+                <label for="lanDescricao" class="form-label">Descrição</label>
+                <input type="text" id="lanDescricao" class="form-control" />
+              </div>
+              <div class="col-md-12 d-flex justify-content-end">
+                <button type="submit" class="btn btn-success">
+                  Salvar Lançamento
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <h5>Lançamentos recentes</h5>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Conta</th>
+              <th>Categoria</th>
+              <th>Tipo</th>
+              <th>Descrição</th>
+              <th>Valor</th>
+            </tr>
+          </thead>
+          <tbody id="tblLancamentosBody">
+      
+          </tbody>
+        </table>
+      </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+.section-hidden {
+  display: none;
+}
+
+.section-visible {
+  display: block;
+}
+
+
+.nav-link-section.active {
+  font-weight: 600;
+}
