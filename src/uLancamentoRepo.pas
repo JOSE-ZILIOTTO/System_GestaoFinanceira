@@ -47,7 +47,7 @@ var
   TipoUpper: string;
 begin
   TipoUpper := UpperCase(tipo);
-  if not(tipo = 'R') or (tipo = 'D') then
+  if not(TipoUpper = 'R') or (TipoUpper = 'D') then
     raise Exception.Create
       ('Tipo de lançamento inválido. Use "R" para receita ou "D" para despesa.');
   if valor <= 0 then

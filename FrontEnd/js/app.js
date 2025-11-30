@@ -13,16 +13,54 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+// function configurarNavegacao() {
+//   const links = document.querySelectorAll(".nav-link-section");
+//   links.forEach((link) => {
+//     link.addEventListener("click", (e) => {
+//       e.preventDefault();
+//       const targetId = link.getAttribute("data-target");
+//       mostrarSecao(targetId);
+
+//       links.forEach((l) => l.classList.remove("active"));
+//       link.classList.add("active");
+//     });
+//   });
+// }
+
 function configurarNavegacao() {
   const links = document.querySelectorAll(".nav-link-section");
   links.forEach((link) => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
       const targetId = link.getAttribute("data-target");
+
+    
       mostrarSecao(targetId);
 
+      
       links.forEach((l) => l.classList.remove("active"));
       link.classList.add("active");
+
+     
+      const sec = document.getElementById(targetId);
+      if (sec) {
+        sec.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      switch (targetId) {
+        case "sec-contas":
+          document.getElementById("contaNome")?.focus();
+          break;
+        case "sec-categorias":
+          document.getElementById("catDescricao")?.focus();
+          break;
+        case "sec-lancamentos":
+          document.getElementById("lanConta")?.focus();
+          break;
+        case "sec-dashboard":
+          document.getElementById("dashConta")?.focus();
+          break;
+      }
     });
   });
 }
@@ -40,18 +78,32 @@ function mostrarSecao(idSecao) {
   }
 }
 
-
 async function carregarDadosIniciais() {
   try {
     await Promise.all([atualizarListaContas(), atualizarListaCategorias()]);
     await atualizarLancamentosTabela();
     preencherCombosLancamento();
     preencherComboDashboard();
+
+   
+    const lancs = await getLancamentos(null, "", ""); 
+    atualizarDashboardValores(0, lancs); 
   } catch (err) {
     console.error(err);
     alert("Erro ao carregar dados iniciais: " + err.message);
   }
 }
+// async function carregarDadosIniciais() {
+//   try {
+//     await Promise.all([atualizarListaContas(), atualizarListaCategorias()]);
+//     await atualizarLancamentosTabela();
+//     preencherCombosLancamento();
+//     preencherComboDashboard();
+//   } catch (err) {
+//     console.error(err);
+//     alert("Erro ao carregar dados iniciais: " + err.message);
+//   }
+// }
 
 
 function configurarFormContas() {

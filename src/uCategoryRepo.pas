@@ -3,7 +3,7 @@ unit uCategoryRepo;
 interface
 
 uses
-  System.JSON,  FireDAC.Stan.ExprFuncs,
+  System.JSON, FireDAC.Stan.ExprFuncs,
   FireDAC.Phys.SQLiteWrapper.Stat, FireDAC.Phys.SQLiteDef, FireDAC.UI.Intf,
   FireDAC.VCLUI.Wait, FireDAC.Comp.UI, FireDAC.Stan.Intf, FireDAC.Phys,
   FireDAC.Phys.SQLite, FireDAC.Stan.Option, FireDAC.Stan.Error,
@@ -48,7 +48,7 @@ var
   TipoUpper: string;
 begin
   TipoUpper := UpperCase(tipo);
-  if not(tipo = 'R') or (tipo = 'D') then
+  if not(TipoUpper = 'R') or (TipoUpper = 'D') then
     raise Exception.Create
       ('Tipo de categoria inválido. Use "R" para receita ou "D" para despesa.');
 
